@@ -1,0 +1,81 @@
+{
+  "manifest_version": 3,
+  "name": "CORTEX",
+  "version": "2.0.0",
+  "description": "HDR · Aura · Phantom · Ghost · Zenith · Radar · Nightfall — Command Center",
+
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting",
+    "tabs"
+  ],
+
+  "host_permissions": [
+    "<all_urls>"
+  ],
+
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "CORTEX",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+
+  "background": {
+    "service_worker": "background.js"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_idle",
+      "all_frames": true
+    }
+  ],
+
+  "chrome_url_overrides": {
+    "newtab": "newtab.html"
+  },
+
+  "commands": {
+    "toggle-all": {
+      "suggested_key": {
+        "default": "Alt+C",
+        "mac": "Alt+C"
+      },
+      "description": "Toggle all CORTEX modules"
+    },
+    "toggle-hdr": {
+      "suggested_key": {
+        "default": "Alt+H",
+        "mac": "Alt+H"
+      },
+      "description": "Toggle HDR"
+    },
+    "toggle-nightfall": {
+      "suggested_key": {
+        "default": "Alt+N",
+        "mac": "Alt+N"
+      },
+      "description": "Toggle Nightfall dark mode"
+    },
+    "toggle-ghost": {
+      "suggested_key": {
+        "default": "Alt+G",
+        "mac": "Alt+G"
+      },
+      "description": "Toggle Ghost Mode"
+    }
+  }
+}
