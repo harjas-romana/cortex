@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CORTEX</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&family=Lora:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+<div class="app" id="app">
+
+  <!-- ======================================================
+       BRANDING — Change owner name here
+  ========================================================= -->
+  <header class="app-header">
+    <div class="brand-row">
+      <span class="brand-logo">COR<span class="brand-bold">TEX</span></span>
+      <span class="brand-diamond">◆</span>
+    </div>
+    <p class="brand-tagline">COMMAND CENTER</p>
+    <p class="brand-by">built for <span class="brand-owner" id="owner-name">YOUR NAME</span></p>
+  </header>
+  <!-- ========================================================= -->
+
+  <!-- =================== MODULE NAV ======================== -->
+  <nav class="module-nav" id="module-nav">
+    <button class="nav-btn active" data-module="hdr" title="HDR Display">
+      <span class="nav-icon">◆</span>
+      <span class="nav-lbl">HDR</span>
+      <span class="nav-dot" id="dot-hdr"></span>
+    </button>
+    <button class="nav-btn" data-module="aura" title="Ambilight">
+      <span class="nav-icon">◑</span>
+      <span class="nav-lbl">AURA</span>
+      <span class="nav-dot" id="dot-aura"></span>
+    </button>
+    <button class="nav-btn" data-module="phantom" title="Cursor Trails">
+      <span class="nav-icon">✦</span>
+      <span class="nav-lbl">PHNTM</span>
+      <span class="nav-dot" id="dot-phantom"></span>
+    </button>
+    <button class="nav-btn" data-module="ghost" title="Privacy Shield">
+      <span class="nav-icon">◈</span>
+      <span class="nav-lbl">GHOST</span>
+      <span class="nav-dot" id="dot-ghost"></span>
+    </button>
+    <button class="nav-btn" data-module="zenith" title="New Tab">
+      <span class="nav-icon">◧</span>
+      <span class="nav-lbl">ZNTH</span>
+      <span class="nav-dot" id="dot-zenith"></span>
+    </button>
+    <button class="nav-btn" data-module="radar" title="Page X-Ray">
+      <span class="nav-icon">◎</span>
+      <span class="nav-lbl">RADAR</span>
+      <span class="nav-dot" id="dot-radar"></span>
+    </button>
+    <button class="nav-btn" data-module="nightfall" title="Dark Mode">
+      <span class="nav-icon">◗</span>
+      <span class="nav-lbl">NIGHT</span>
+      <span class="nav-dot" id="dot-nightfall"></span>
+    </button>
+  </nav>
+
+  <div class="nav-line"></div>
+
+  <!-- =================== PANELS ============================ -->
+  <main class="panels-wrap" id="panels-wrap">
+
+    <!-- ============ HDR PANEL ============================== -->
+    <section class="panel active" data-panel="hdr">
+      <div class="pan-head">
+        <div>
+          <h2 class="pan-title">HDR DISPLAY</h2>
+          <p class="pan-desc">XDR tone-mapping engine</p>
+        </div>
+        <label class="sw">
+          <input type="checkbox" id="hdr-enabled" />
+          <span class="sw-track"><span class="sw-thumb"></span></span>
+        </label>
+      </div>
+
+      <div class="pan-body" id="hdr-body">
+        <!-- Mode -->
+        <div class="cg">
+          <span class="cg-label">MODE</span>
+          <div class="seg-row seg-2">
+            <button class="seg active" data-hdr-mode="simulated">SIMULATED</button>
+            <button class="seg" data-hdr-mode="xdr">XDR NATIVE</button>
+          </div>
+        </div>
+
+        <!-- Tone Map (sim only) -->
+        <div class="cg hdr-sim-only">
+          <span class="cg-label">TONE MAP</span>
+          <div class="seg-row seg-3">
+            <button class="seg sm active" data-hdr-tone="aces">ACES</button>
+            <button class="seg sm" data-hdr-tone="reinhard">REINHARD</button>
+            <button class="seg sm" data-hdr-tone="filmic">FILMIC</button>
+          </div>
+        </div>
+
+        <!-- Display info -->
+        <div class="info-bar" id="hdr-display-info">
+          <span class="info-dot" id="hdr-disp-dot"></span>
+          <span class="info-text" id="hdr-disp-text">Checking display…</span>
+        </div>
+
+        <!-- Intensity (both modes) -->
+        <div class="sl">
+          <div class="sl-head">
+            <span class="sl-label">INTENSITY</span>
+            <span class="sl-val" id="hdr-intensity-v">70%</span>
+          </div>
+          <input type="range" class="slider" id="hdr-intensity" min="0" max="100" value="70" />
+        </div>
+
+        <!-- Simulated-only sliders -->
+        <div class="sl hdr-sim-only">
+          <div class="sl-head">
+            <span class="sl-label">SHADOWS</span>
+            <span class="sl-val" id="hdr-shadows-v">+10</span>
+          </div>
+          <input type="range" class="slider center" id="hdr-shadows" min="-50" max="50" value="10" />
+        </div>
+
+        <div class="sl hdr-sim-only">
+          <div class="sl-head">
+            <span class="sl-label">HIGHLIGHTS</span>
+            <span class="sl-val" id="hdr-highlights-v">-5</span>
+          </div>
+          <input type="range" class="slider center" id="hdr-highlights" min="-50" max="50" value="-5" />
+        </div>
+
+        <div class="sl hdr-sim-only">
+          <div class="sl-head">
+            <span class="sl-label">CLARITY</span>
+            <span class="sl-val" id="hdr-clarity-v">35%</span>
+          </div>
+          <input type="range" class="slider" id="hdr-clarity" min="0" max="100" value="35" />
+        </div>
+
+        <div class="sl hdr-sim-only">
+          <div class="sl-head">
+            <span class="sl-label">COLOR TEMP</span>
+            <span class="sl-val" id="hdr-temp-v">0</span>
+          </div>
+          <input type="range" class="slider center" id="hdr-temp" min="-50" max="50" value="0" />
+        </div>
+
+        <div class="sl hdr-sim-only">
+          <div class="sl-head">
+            <span class="sl-label">VIBRANCE</span>
+            <span class="sl-val" id="hdr-vibrance-v">25%</span>
+          </div>
+          <input type="range" class="slider" id="hdr-vibrance" min="0" max="100" value="25" />
+        </div>
+
+        <div class="sl hdr-sim-only">
+          <div class="sl-head">
+            <span class="sl-label">BLOOM</span>
+            <span class="sl-val" id="hdr-bloom-v">8%</span>
+          </div>
+          <input type="range" class="slider" id="hdr-bloom" min="0" max="50" value="8" />
+        </div>
+
+        <!-- XDR-only slider -->
+        <div class="sl hdr-xdr-only" style="display:none">
+          <div class="sl-head">
+            <span class="sl-label">XDR PEAK</span>
+            <span class="sl-val" id="hdr-xdr-peak-v">150%</span>
+          </div>
+          <input type="range" class="slider" id="hdr-xdr-peak" min="100" max="300" value="150" />
+          <span class="sl-hint" id="hdr-nits-hint">≈ 800 nits</span>
+        </div>
+
+        <!-- Presets (sim only) -->
+        <div class="cg hdr-sim-only">
+          <span class="cg-label">PRESETS</span>
+          <div class="seg-row seg-4">
+            <button class="pre active" data-hdr-preset="cinematic">CINEMA</button>
+            <button class="pre" data-hdr-preset="vivid">VIVID</button>
+            <button class="pre" data-hdr-preset="natural">NATURAL</button>
+            <button class="pre" data-hdr-preset="neon">NEON</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ AURA PANEL ============================= -->
+    <section class="panel" data-panel="aura">
+      <div class="pan-head">
+        <div>
+          <h2 class="pan-title">AURA</h2>
+          <p class="pan-desc">Ambilight video glow</p>
+        </div>
+        <label class="sw">
+          <input type="checkbox" id="aura-enabled" />
+          <span class="sw-track"><span class="sw-thumb"></span></span>
+        </label>
+      </div>
+      <div class="pan-body" id="aura-body">
+        <div class="sl">
+          <div class="sl-head">
+            <span class="sl-label">INTENSITY</span>
+            <span class="sl-val" id="aura-intensity-v">70%</span>
+          </div>
+          <input type="range" class="slider" id="aura-intensity" min="0" max="100" value="70" />
+        </div>
+        <div class="sl">
+          <div class="sl-head">
+            <span class="sl-label">BLUR</span>
+            <span class="sl-val" id="aura-blur-v">60px</span>
+          </div>
+          <input type="range" class="slider" id="aura-blur" min="10" max="120" value="60" />
+        </div>
+        <div class="sl">
+          <div class="sl-head">
+            <span class="sl-label">SPREAD</span>
+            <span class="sl-val" id="aura-spread-v">40px</span>
+          </div>
+          <input type="range" class="slider" id="aura-spread" min="10" max="100" value="40" />
+        </div>
+        <div class="sl">
+          <div class="sl-head">
+            <span class="sl-label">SMOOTHING</span>
+            <span class="sl-val" id="aura-smooth-v">50%</span>
+          </div>
+          <input type="range" class="slider" id="aura-smooth" min="10" max="100" value="50" />
+        </div>
+        <div class="cg">
+          <span class="cg-label">GLOW POSITION</span>
+          <div class="seg-row seg-3">
+            <button class="seg sm active" data-aura-sides="all">ALL</button>
+            <button class="seg sm" data-aura-sides="sides">SIDES</button>
+            <button class="seg sm" data-aura-sides="topbot">TOP/BTM</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PHANTOM PANEL ========================== -->
+    <section class="panel" data-panel="phantom">
+      <div class="pan-head">
+        <div>
+          <h2 class="pan-title">PHANTOM</h2>
+          <p class="pan-desc">Cursor particle trails</p>
+        </div>
+        <label class="sw">
+          <input type="checkbox" id="phantom-enabled" />
+          <span class="sw-track"><span class="sw-thumb"></span></span>
+        </label>
+      </div>
+      <div class="pan-body" id="phantom-body">
+        <div class="cg">
+          <span class="cg-label">TRAIL EFFECT</span>
+          <div class="seg-row seg-4">
+            <button class="seg sm active" data-phantom-type="particles">PARTS</button>
+            <button class="seg sm" data-phantom-type="glow">GLOW</button>
+            <button class="seg sm" data-phantom-type="trail">TRAIL</button>
+            <button class="seg sm" data-phantom-type="stars">STARS</button>
+          </div>
+        </div>
+        <div class="sl">
+          <div class="sl-head">
+            <span class="sl-label">LENGTH</span>
+            <span class="sl-val" id="phantom-length-v">20</span>
+          </div>
+          <input type="range" class="slider" id="phantom-length" min="5" max="50" value="20" />
+        </div>
+        <div class="sl">
+          <div class="sl-head">
+            <span class="sl-label">SIZE</span>
+            <span class="sl-val" id="phantom-size-v">3px</span>
+          </div>
+          <input type="range" class="slider" id="phantom-size" min="1" max="10" value="3" />
+        </div>
+        <div class="sl">
+          <div class="sl-head">
+            <span class="sl-label">OPACITY</span>
+            <span class="sl-val" id="phantom-opacity-v">70%</span>
+          </div>
+          <input type="range" class="slider" id="phantom-opacity" min="10" max="100" value="70" />
+        </div>
+        <div class="sl">
+          <div class="sl-head">
+            <span class="sl-label">FADE SPEED</span>
+            <span class="sl-val" id="phantom-fade-v">50%</span>
+          </div>
+          <input type="range" class="slider" id="phantom-fade" min="10" max="100" value="50" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ GHOST PANEL ============================= -->
+    <section class="panel" data-panel="ghost">
+      <div class="pan-head">
+        <div>
+          <h2 class="pan-title">GHOST MODE</h2>
+          <p class="pan-desc">Privacy &amp; tracking shield</p>
+        </div>
+        <label class="sw">
+          <input type="checkbox" id="ghost-enabled" />
+          <span class="sw-track"><span class="sw-thumb"></span></span>
+        </label>
+      </div>
+      <div class="pan-body" id="ghost-body">
+        <div class="cg">
+          <span class="cg-label">PROTECTIONS</span>
+          <div class="check-list">
+            <label class="chk">
+              <input type="checkbox" id="ghost-trackers" checked />
+              <span class="chk-box"></span>
+              <span class="chk-text">Block Trackers</span>
+              <span class="chk-count" id="ghost-trackers-count">0</span>
+            </label>
+            <label class="chk">
+              <input type="checkbox" id="ghost-utm" checked />
+              <span class="chk-box"></span>
+              <span class="chk-text">Strip UTM Params</span>
+            </label>
+            <label class="chk">
+              <input type="checkbox" id="ghost-webrtc" checked />
+              <span class="chk-box"></span>
+              <span class="chk-text">WebRTC Shield</span>
+            </label>
+            <label class="chk">
+              <input type="checkbox" id="ghost-fingerprint" checked />
+              <span class="chk-box"></span>
+              <span class="chk-text">Fingerprint Guard</span>
+            </label>
+            <label class="chk">
+              <input type="checkbox" id="ghost-cookies" />
+              <span class="chk-box"></span>
+              <span class="chk-text">Auto-Clear Cookies</span>
+            </label>
+          </div>
+        </div>
+        <div class="ghost-stats">
+          <div class="gs-card">
+            <span class="gs-num" id="ghost-stat-trackers">0</span>
+            <span class="gs-label">TRACKERS<br/>BLOCKED</span>
+          </div>
+          <div class="gs-card">
+            <span class="gs-num" id="ghost-stat-cookies">0</span>
+            <span class="gs-label">COOKIES<br/>CLEARED</span>
+          </div>
+          <div class="gs-card">
+            <span class="gs-num" id="ghost-stat-utm">0</span>
+            <span class="gs-label">UTMs<br/>STRIPPED</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ZENITH PANEL ============================ -->
+    <section class="panel" data-panel="zenith">
+      <div class="pan-head">
+        <div>
+          <h2 class="pan-title">ZENITH</h2>
+          <p class="pan-desc">Personal new-tab dashboard</p>
+        </div>
+        <label class="sw">
+          <input type="checkbox" id="zenith-enabled" />
+          <span class="sw-track"><span class="sw-thumb"></span></span>
+        </label>
+      </div>
+      <div class="pan-body" id="zenith-body">
+        <div class="cg">
+          <span class="cg-label">DISPLAY ELEMENTS</span>
+          <div class="check-list">
+            <label class="chk">
+              <input type="checkbox" id="zenith-clock24" checked />
+              <span class="chk-box"></span>
+              <span class="chk-text">24-Hour Clock</span>
+            </label>
+            <label class="chk">
+              <input type="checkbox" id="zenith-greeting" checked />
+              <span class="chk-box"></span>
+              <span class="chk-text">Personal Greeting</span>
+            </label>
+            <label class="chk">
+              <input type="checkbox" id="zenith-quote" checked />
+              <span class="chk-box"></span>
+              <span class="chk-text">Daily Quote</span>
+            </label>
+            <label class="chk">
+              <input type="checkbox" id="zenith-date" checked />
+              <span class="chk-box"></span>
+              <span class="chk-text">Date Display</span>
+            </label>
+          </div>
+        </div>
+        <div class="cg">
+          <span class="cg-label">BACKGROUND</span>
+          <div class="seg-row seg-3">
+            <button class="seg sm active" data-zenith-bg="solid">SOLID</button>
+            <button class="seg sm" data-zenith-bg="gradient">GRADIENT</button>
+            <button class="seg sm" data-zenith-bg="mesh">MESH</button>
+          </div>
+        </div>
+        <div class="cg">
+          <span class="cg-label">CLOCK STYLE</span>
+          <div class="seg-row seg-3">
+            <button class="seg sm active" data-zenith-clock="minimal">MINIMAL</button>
+            <button class="seg sm" data-zenith-clock="bold">BOLD</button>
+            <button class="seg sm" data-zenith-clock="serif">SERIF</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ RADAR PANEL ============================= -->
+    <section class="panel" data-panel="radar">
+      <div class="pan-head">
+        <div>
+          <h2 class="pan-title">RADAR</h2>
+          <p class="pan-desc">Page tech x-ray</p>
+        </div>
+        <button class="scan-btn" id="radar-scan">
+          <span class="scan-icon">◎</span>
+          <span>SCAN</span>
+        </button>
+      </div>
+      <div class="pan-body" id="radar-body">
+        <div class="radar-empty" id="radar-empty">
+          <span class="radar-empty-icon">◎</span>
+          <p>Hit <strong>SCAN</strong> to analyze<br/>the current page</p>
+        </div>
+        <div class="radar-results" id="radar-results" style="display:none">
+          <div class="rr-group" id="rr-frameworks">
+            <span class="rr-title">FRAMEWORKS</span>
+            <div class="rr-tags" id="rr-frameworks-tags"></div>
+          </div>
+          <div class="rr-group" id="rr-fonts">
+            <span class="rr-title">FONTS</span>
+            <div class="rr-tags" id="rr-fonts-tags"></div>
+          </div>
+          <div class="rr-group" id="rr-colors">
+            <span class="rr-title">COLORS</span>
+            <div class="rr-colors" id="rr-colors-swatches"></div>
+          </div>
+          <div class="rr-group" id="rr-meta">
+            <span class="rr-title">META</span>
+            <div class="rr-meta-list" id="rr-meta-list"></div>
+          </div>
+          <div class="rr-group" id="rr-perf">
+            <span class="rr-title">PERFORMANCE</span>
+            <div class="rr-meta-list" id="rr-perf-list"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ NIGHTFALL PANEL ========================= -->
+    <section class="panel" data-panel="nightfall">
+      <div class="pan-head">
+        <div>
+          <h2 class="pan-title">NIGHTFALL</h2>
+          <p class="pan-desc">Intelligent dark mode</p>
+        </div>
+        <label class="sw">
+          <input type="checkbox" id="nightfall-enabled" />
+          <span class="sw-track"><span class="sw-thumb"></span></span>
+        </label>
+      </div>
+      <div class="pan-body" id="nightfall-body">
+        <div class="cg">
+          <span class="cg-label">ALGORITHM</span>
+          <div class="seg-row seg-2">
+            <button class="seg active" data-night-mode="intelligent">INTELLIGENT</button>
+            <button class="seg" data-night-mode="invert">INVERT</button>
+          </div>
+        </div>
+        <div class="sl">
+          <div class="sl-head">
+            <span class="sl-label">BRIGHTNESS</span>
+            <span class="sl-val" id="night-brightness-v">92%</span>
+          </div>
+          <input type="range" class="slider" id="night-brightness" min="50" max="100" value="92" />
+        </div>
+        <div class="sl">
+          <div class="sl-head">
+            <span class="sl-label">CONTRAST</span>
+            <span class="sl-val" id="night-contrast-v">105%</span>
+          </div>
+          <input type="range" class="slider" id="night-contrast" min="80" max="130" value="105" />
+        </div>
+        <div class="sl">
+          <div class="sl-head">
+            <span class="sl-label">WARMTH</span>
+            <span class="sl-val" id="night-warmth-v">10%</span>
+          </div>
+          <input type="range" class="slider" id="night-warmth" min="0" max="50" value="10" />
+        </div>
+        <div class="cg">
+          <span class="cg-label">OPTIONS</span>
+          <div class="check-list">
+            <label class="chk">
+              <input type="checkbox" id="night-exclude-img" checked />
+              <span class="chk-box"></span>
+              <span class="chk-text">Exclude Images &amp; Videos</span>
+            </label>
+            <label class="chk">
+              <input type="checkbox" id="night-per-site" checked />
+              <span class="chk-box"></span>
+              <span class="chk-text">Remember Per-Site</span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =================== FOOTER ============================ -->
+  <footer class="app-footer">
+    <div class="foot-status">
+      <span class="foot-dot" id="foot-dot"></span>
+      <span class="foot-text" id="foot-text">ALL SYSTEMS IDLE</span>
+    </div>
+    <span class="foot-ver" id="foot-ver">v2.0.0</span>
+  </footer>
+
+</div>
+
+<script src="popup.js"></script>
+</body>
+</html>
