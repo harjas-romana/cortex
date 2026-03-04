@@ -1,0 +1,640 @@
+/* ==========================================================
+ *  CORTEX ZENITH — New Tab Dashboard
+ *  Pure Black & White  ·  DM Sans + Lora + Space Mono
+ *  Cinematic minimal layout — fills entire viewport
+ * ========================================================== */
+
+/* ----------------------------------------------------------
+ *  THEME TOKENS
+ * ---------------------------------------------------------- */
+:root {
+  --bg:         #000000;
+  --t100:       #ffffff;
+  --t80:        #cccccc;
+  --t60:        #888888;
+  --t40:        #555555;
+  --t20:        #333333;
+  --t10:        #1a1a1a;
+  --t05:        #0d0d0d;
+  --glow:       rgba(255,255,255,0.06);
+  --glow-m:     rgba(255,255,255,0.12);
+  --glow-s:     rgba(255,255,255,0.25);
+  --r:          12px;
+  --r-sm:       8px;
+  --ease:       cubic-bezier(0.4, 0, 0.2, 1);
+  --font:       'DM Sans', system-ui, -apple-system, sans-serif;
+  --brand:      'Lora', 'Georgia', serif;
+  --mono:       'Space Mono', 'SF Mono', 'Fira Code', monospace;
+}
+
+/* ----------------------------------------------------------
+ *  RESET
+ * ---------------------------------------------------------- */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  background: var(--bg);
+  color: var(--t100);
+  font-family: var(--font);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: rgba(255,255,255,0.15);
+  color: var(--t100);
+}
+
+/* ----------------------------------------------------------
+ *  BACKGROUND CANVAS (mesh / gradient)
+ * ---------------------------------------------------------- */
+#bg-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.5s ease;
+}
+
+#bg-canvas.visible {
+  opacity: 1;
+}
+
+/* ----------------------------------------------------------
+ *  MAIN LAYOUT
+ * ---------------------------------------------------------- */
+.zen {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 60px;
+  gap: 0;
+  animation: fadeInPage 1s ease;
+}
+
+@keyframes fadeInPage {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ----------------------------------------------------------
+ *  TOP BAR
+ * ---------------------------------------------------------- */
+.zen-top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 40px;
+  z-index: 10;
+}
+
+.zen-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.zen-logo {
+  font-family: var(--brand);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 5px;
+  color: var(--t20);
+  text-transform: uppercase;
+}
+
+.zen-logo-b {
+  font-weight: 700;
+}
+
+.zen-diamond {
+  font-size: 6px;
+  color: var(--t20);
+  animation: pulse 4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50%      { opacity: 0.6; transform: scale(1.3); }
+}
+
+.zen-owner {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: var(--t10);
+  text-transform: uppercase;
+}
+
+/* ----------------------------------------------------------
+ *  DATE
+ * ---------------------------------------------------------- */
+.zen-date-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  animation: slideUp 0.8s ease 0.1s both;
+}
+
+.zen-day {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: var(--t20);
+  text-transform: uppercase;
+}
+
+.zen-date-sep {
+  font-size: 12px;
+  color: var(--t10);
+}
+
+.zen-date {
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 3px;
+  color: var(--t20);
+  text-transform: uppercase;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ----------------------------------------------------------
+ *  GREETING
+ * ---------------------------------------------------------- */
+.zen-greeting-wrap {
+  margin-bottom: 8px;
+  animation: slideUp 0.8s ease 0.2s both;
+}
+
+.zen-greeting {
+  font-family: var(--brand);
+  font-size: 28px;
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: 2px;
+  color: var(--t40);
+  text-align: center;
+}
+
+.zen-greeting-wrap.hidden {
+  display: none;
+}
+
+/* ----------------------------------------------------------
+ *  CLOCK
+ * ---------------------------------------------------------- */
+.zen-clock-wrap {
+  margin-bottom: 24px;
+  animation: slideUp 0.8s ease 0.3s both;
+}
+
+.zen-clock {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0;
+  line-height: 1;
+}
+
+/* --- Clock Style: Minimal --- */
+.zen-clock.style-minimal .zen-hours,
+.zen-clock.style-minimal .zen-minutes {
+  font-family: var(--font);
+  font-size: 140px;
+  font-weight: 200;
+  letter-spacing: -4px;
+  color: var(--t100);
+}
+
+.zen-clock.style-minimal .zen-colon {
+  font-family: var(--font);
+  font-size: 120px;
+  font-weight: 200;
+  color: var(--t20);
+  margin: 0 4px;
+  animation: colonBlink 2s step-end infinite;
+}
+
+.zen-clock.style-minimal .zen-seconds {
+  font-family: var(--mono);
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--t20);
+  margin-left: 12px;
+  letter-spacing: 2px;
+  align-self: flex-end;
+  margin-bottom: 18px;
+}
+
+.zen-clock.style-minimal .zen-ampm {
+  font-family: var(--font);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: var(--t20);
+  margin-left: 12px;
+  align-self: flex-end;
+  margin-bottom: 22px;
+}
+
+/* --- Clock Style: Bold --- */
+.zen-clock.style-bold .zen-hours,
+.zen-clock.style-bold .zen-minutes {
+  font-family: var(--font);
+  font-size: 160px;
+  font-weight: 700;
+  letter-spacing: -2px;
+  color: var(--t100);
+  text-shadow: 0 0 60px var(--glow-m), 0 0 120px var(--glow);
+}
+
+.zen-clock.style-bold .zen-colon {
+  font-family: var(--font);
+  font-size: 140px;
+  font-weight: 700;
+  color: var(--t40);
+  margin: 0 2px;
+  animation: colonBlink 2s step-end infinite;
+}
+
+.zen-clock.style-bold .zen-seconds {
+  font-family: var(--mono);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--t20);
+  margin-left: 14px;
+  letter-spacing: 2px;
+  align-self: flex-end;
+  margin-bottom: 24px;
+}
+
+.zen-clock.style-bold .zen-ampm {
+  font-family: var(--font);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: var(--t20);
+  margin-left: 14px;
+  align-self: flex-end;
+  margin-bottom: 28px;
+}
+
+/* --- Clock Style: Serif --- */
+.zen-clock.style-serif .zen-hours,
+.zen-clock.style-serif .zen-minutes {
+  font-family: var(--brand);
+  font-size: 150px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  color: var(--t100);
+}
+
+.zen-clock.style-serif .zen-colon {
+  font-family: var(--brand);
+  font-size: 130px;
+  font-weight: 400;
+  color: var(--t20);
+  margin: 0 6px;
+  animation: colonBlink 2s step-end infinite;
+}
+
+.zen-clock.style-serif .zen-seconds {
+  font-family: var(--brand);
+  font-size: 26px;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--t20);
+  margin-left: 14px;
+  letter-spacing: 1px;
+  align-self: flex-end;
+  margin-bottom: 20px;
+}
+
+.zen-clock.style-serif .zen-ampm {
+  font-family: var(--brand);
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: var(--t20);
+  margin-left: 12px;
+  align-self: flex-end;
+  margin-bottom: 24px;
+}
+
+@keyframes colonBlink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.2; }
+}
+
+/* ----------------------------------------------------------
+ *  QUOTE
+ * ---------------------------------------------------------- */
+.zen-quote-wrap {
+  text-align: center;
+  max-width: 680px;
+  margin-bottom: 40px;
+  animation: slideUp 0.8s ease 0.5s both;
+}
+
+.zen-quote-wrap.hidden {
+  display: none;
+}
+
+.zen-quote {
+  font-family: var(--brand);
+  font-size: 16px;
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.8;
+  color: var(--t40);
+  letter-spacing: 0.5px;
+  border: none;
+  padding: 0;
+  margin: 0;
+  quotes: none;
+}
+
+.zen-quote::before {
+  content: '"';
+  font-size: 28px;
+  color: var(--t20);
+  font-family: var(--brand);
+  vertical-align: -4px;
+  margin-right: 4px;
+}
+
+.zen-quote::after {
+  content: '"';
+  font-size: 28px;
+  color: var(--t20);
+  font-family: var(--brand);
+  vertical-align: -4px;
+  margin-left: 4px;
+}
+
+.zen-author {
+  display: block;
+  font-family: var(--font);
+  font-size: 10px;
+  font-weight: 700;
+  font-style: normal;
+  letter-spacing: 4px;
+  color: var(--t20);
+  margin-top: 14px;
+  text-transform: uppercase;
+}
+
+.zen-author::before {
+  content: '— ';
+  color: var(--t10);
+}
+
+/* ----------------------------------------------------------
+ *  SEARCH BAR
+ * ---------------------------------------------------------- */
+.zen-search-wrap {
+  width: 100%;
+  max-width: 560px;
+  margin-bottom: 36px;
+  animation: slideUp 0.8s ease 0.6s both;
+}
+
+.zen-search {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  background: var(--t05);
+  border: 1px solid var(--t10);
+  border-radius: 60px;
+  transition: all 0.3s var(--ease);
+}
+
+.zen-search:focus-within {
+  border-color: var(--t20);
+  background: var(--t10);
+  box-shadow: 0 0 40px var(--glow), 0 0 80px rgba(255,255,255,0.03);
+}
+
+.zen-search-icon {
+  font-size: 18px;
+  color: var(--t20);
+  flex-shrink: 0;
+  transition: color 0.3s ease;
+}
+
+.zen-search:focus-within .zen-search-icon {
+  color: var(--t40);
+}
+
+.zen-search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  color: var(--t80);
+  caret-color: var(--t60);
+}
+
+.zen-search-input::placeholder {
+  color: var(--t20);
+  letter-spacing: 1px;
+}
+
+/* ----------------------------------------------------------
+ *  SHORTCUTS
+ * ---------------------------------------------------------- */
+.zen-shortcuts {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  animation: slideUp 0.8s ease 0.7s both;
+}
+
+.zen-shortcut {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 80px;
+  height: 76px;
+  background: var(--t05);
+  border: 1px solid var(--t10);
+  border-radius: var(--r);
+  text-decoration: none;
+  color: var(--t20);
+  transition: all 0.25s var(--ease);
+}
+
+.zen-shortcut:hover {
+  background: var(--t10);
+  border-color: var(--t20);
+  color: var(--t60);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+
+.zen-shortcut:active {
+  transform: translateY(0);
+}
+
+.sc-icon {
+  font-size: 20px;
+  line-height: 1;
+  transition: transform 0.2s ease;
+}
+
+.zen-shortcut:hover .sc-icon {
+  transform: scale(1.15);
+}
+
+.sc-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+/* ----------------------------------------------------------
+ *  BOTTOM BAR
+ * ---------------------------------------------------------- */
+.zen-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 40px;
+  z-index: 10;
+}
+
+.zen-stats {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.zen-stat {
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  color: var(--t10);
+  text-transform: uppercase;
+}
+
+.zen-stat-sep {
+  color: var(--t10);
+  font-size: 10px;
+}
+
+.zen-ver {
+  font-size: 8px;
+  letter-spacing: 2px;
+  color: var(--t10);
+}
+
+/* ----------------------------------------------------------
+ *  HIDDEN UTILITY
+ * ---------------------------------------------------------- */
+.hidden {
+  display: none !important;
+}
+
+/* ----------------------------------------------------------
+ *  RESPONSIVE
+ * ---------------------------------------------------------- */
+@media (max-width: 900px) {
+  .zen-clock.style-minimal .zen-hours,
+  .zen-clock.style-minimal .zen-minutes {
+    font-size: 90px;
+  }
+  .zen-clock.style-minimal .zen-colon { font-size: 80px; }
+
+  .zen-clock.style-bold .zen-hours,
+  .zen-clock.style-bold .zen-minutes {
+    font-size: 100px;
+  }
+  .zen-clock.style-bold .zen-colon { font-size: 90px; }
+
+  .zen-clock.style-serif .zen-hours,
+  .zen-clock.style-serif .zen-minutes {
+    font-size: 100px;
+  }
+  .zen-clock.style-serif .zen-colon { font-size: 90px; }
+
+  .zen-greeting { font-size: 22px; }
+  .zen-quote { font-size: 14px; }
+}
+
+@media (max-width: 600px) {
+  .zen { padding: 30px 24px; }
+  .zen-top { padding: 16px 24px; }
+  .zen-bottom { padding: 14px 24px; }
+
+  .zen-clock.style-minimal .zen-hours,
+  .zen-clock.style-minimal .zen-minutes { font-size: 60px; }
+  .zen-clock.style-minimal .zen-colon { font-size: 50px; }
+  .zen-clock.style-minimal .zen-seconds { font-size: 16px; }
+
+  .zen-clock.style-bold .zen-hours,
+  .zen-clock.style-bold .zen-minutes { font-size: 70px; }
+
+  .zen-clock.style-serif .zen-hours,
+  .zen-clock.style-serif .zen-minutes { font-size: 70px; }
+
+  .zen-shortcut { width: 64px; height: 62px; }
+  .sc-icon { font-size: 16px; }
+  .zen-greeting { font-size: 18px; }
+}
+
+/* ----------------------------------------------------------
+ *  BACKGROUND STYLES (applied via JS classes on body)
+ * ---------------------------------------------------------- */
+
+/* Gradient noise overlay for texture */
+body.bg-gradient::after,
+body.bg-mesh::after {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  opacity: 0.015;
+  z-index: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+}
