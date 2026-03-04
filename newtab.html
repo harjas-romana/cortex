@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>New Tab — CORTEX</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,200;9..40,300;9..40,400;9..40,500;9..40,700&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="newtab.css" />
+</head>
+<body>
+
+<!-- ======================================================
+     CORTEX ZENITH — New Tab Dashboard
+     Background canvas for mesh/gradient effects
+======================================================= -->
+<canvas id="bg-canvas"></canvas>
+
+<div class="zen" id="zen">
+
+  <!-- ============ TOP BAR ================================ -->
+  <header class="zen-top">
+    <div class="zen-brand">
+      <span class="zen-logo">COR<span class="zen-logo-b">TEX</span></span>
+      <span class="zen-diamond">◆</span>
+    </div>
+    <!-- ====================================================
+         BRANDING — Change your name here
+    ======================================================= -->
+    <div class="zen-owner" id="zen-owner">YOUR NAME</div>
+    <!-- ======================================================= -->
+  </header>
+
+  <!-- ============ DATE ==================================== -->
+  <div class="zen-date-wrap" id="zen-date-wrap">
+    <span class="zen-day" id="zen-day"></span>
+    <span class="zen-date-sep">·</span>
+    <span class="zen-date" id="zen-date"></span>
+  </div>
+
+  <!-- ============ GREETING ================================ -->
+  <div class="zen-greeting-wrap" id="zen-greeting-wrap">
+    <h1 class="zen-greeting" id="zen-greeting"></h1>
+  </div>
+
+  <!-- ============ CLOCK =================================== -->
+  <div class="zen-clock-wrap" id="zen-clock-wrap">
+    <div class="zen-clock" id="zen-clock">
+      <span class="zen-hours" id="zen-hours">00</span>
+      <span class="zen-colon" id="zen-colon">:</span>
+      <span class="zen-minutes" id="zen-minutes">00</span>
+      <span class="zen-seconds" id="zen-seconds">00</span>
+      <span class="zen-ampm" id="zen-ampm"></span>
+    </div>
+  </div>
+
+  <!-- ============ QUOTE =================================== -->
+  <div class="zen-quote-wrap" id="zen-quote-wrap">
+    <blockquote class="zen-quote" id="zen-quote"></blockquote>
+    <cite class="zen-author" id="zen-author"></cite>
+  </div>
+
+  <!-- ============ SEARCH ================================== -->
+  <div class="zen-search-wrap">
+    <div class="zen-search">
+      <span class="zen-search-icon">⌕</span>
+      <input type="text" class="zen-search-input" id="zen-search"
+             placeholder="Search or enter URL" autocomplete="off" spellcheck="false" />
+    </div>
+  </div>
+
+  <!-- ============ SHORTCUTS =============================== -->
+  <div class="zen-shortcuts" id="zen-shortcuts">
+    <a class="zen-shortcut" href="https://youtube.com" title="YouTube">
+      <span class="sc-icon">▶</span>
+      <span class="sc-label">YouTube</span>
+    </a>
+    <a class="zen-shortcut" href="https://github.com" title="GitHub">
+      <span class="sc-icon">◈</span>
+      <span class="sc-label">GitHub</span>
+    </a>
+    <a class="zen-shortcut" href="https://twitter.com" title="Twitter / X">
+      <span class="sc-icon">✦</span>
+      <span class="sc-label">X</span>
+    </a>
+    <a class="zen-shortcut" href="https://gmail.com" title="Gmail">
+      <span class="sc-icon">◇</span>
+      <span class="sc-label">Mail</span>
+    </a>
+    <a class="zen-shortcut" href="https://notion.so" title="Notion">
+      <span class="sc-icon">◧</span>
+      <span class="sc-label">Notion</span>
+    </a>
+    <a class="zen-shortcut" href="https://chat.openai.com" title="ChatGPT">
+      <span class="sc-icon">◉</span>
+      <span class="sc-label">ChatGPT</span>
+    </a>
+  </div>
+
+  <!-- ============ BOTTOM BAR ============================== -->
+  <footer class="zen-bottom">
+    <div class="zen-stats">
+      <span class="zen-stat" id="zen-stat-cortex"></span>
+      <span class="zen-stat-sep">·</span>
+      <span class="zen-stat" id="zen-stat-time"></span>
+    </div>
+    <span class="zen-ver">CORTEX v2.0.0</span>
+  </footer>
+
+</div>
+
+<script src="newtab.js"></script>
+</body>
+</html>
